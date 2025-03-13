@@ -1,0 +1,10 @@
+opencv-python
+matplotlib
+scikit-learn
+numpy
+jupyter
+ipython
+ipykernel
+bash_kernel
+scikit-image
+torch
