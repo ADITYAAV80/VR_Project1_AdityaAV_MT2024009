@@ -1,4 +1,3 @@
-opencv-python
 matplotlib
 scikit-learn
 numpy
@@ -8,3 +7,4 @@ ipykernel
 bash_kernel
 scikit-image
 torch
+opencv-python-headless
