@@ -1,0 +1,11 @@
+matplotlib
+scikit-learn
+numpy
+jupyter
+ipython
+ipykernel
+bash_kernel
+scikit-image
+torch
+opencv-python-headless
+optuna

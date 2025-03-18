@@ -1,0 +1,4 @@
+/Data
+/__pycache__
+/model/HOG_SVC.pkl
+/model/LBP_SVC.pkl
