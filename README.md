@@ -98,7 +98,6 @@ The Canny algorithm employs a double thresholding mechanism to classify edge pix
 
 In our implementation, we  heuristically determined strong and weak edge thresholds to be 62 ,15 percentiles of pixel intensity respectively. 
 
-Canny Edge Detection Example: 
 
 <div align="center">
    <img src="./image/seg_img_1_canny.png" height="300px">
