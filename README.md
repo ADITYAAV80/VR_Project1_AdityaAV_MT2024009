@@ -269,7 +269,6 @@ The Dice score is a metric used to evaluate the **overlap between two sets**, co
 
 $$
 \text{Dice Score} = \frac{2 \times |P \cap G|}{|P| + |G|}
-
 $$
 
 
