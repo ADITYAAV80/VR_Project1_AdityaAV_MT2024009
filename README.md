@@ -244,3 +244,109 @@ Overcoming these challenges requires more robust preprocessing techniques and ad
    ```
    Notebook path -> ./notebooks/segmentation.ipynb
    ```
+   
+   
+   
+# UNET Segmentation
+
+### Hyper parameter tuning 
+#### GridSearch 
+There are other methods like bayesian optimization which can be used for hyper parameter tuning, but I used gridsearch
+##### Search space
+1. "learning_rate": [1e-3, 1e-4],
+2. "dropout": [0.3, 0.5],
+3. "num_filters": [32, 64],
+4. "kernel_size": [(3,3), (5,5)]
+
+The correspoding information regarding the models architecture  and their summary is there given in the hyper parameter tuning folder. 
+Got an idea how the IoU score varies according to the architecture, which helped in building the final model. 
+The IoU score of each model variant with respect to the data is jotted in the "results.csv", the above mentioned folder. 
+
+
+## Result
+### Train Size = **9383 Images**
+#### Dice Score =  0.93 
+
+
+
+### Test Set Size = **94 Images**
+#### IoU Score
+
+
+ <table border="1" align="center">
+    <tr>
+        <th colspan="2">IoU Scores</th>
+    </tr>
+    <tr>
+        <td><b>Mean IoU</b></td>
+        <td>0.80</td>
+    </tr>
+</table>
+
+### Sample output prediction from model
+
+#### Sample 1
+<div align="center">
+    <img src="./image/mask_gt_vs_pred_unet.png" alt="3 squares" width="500px" height="300px"/>
+    <p>Comparision Ground Truth vs Predicted</p>
+</div>
+
+#### Sample 2
+<div align="center">
+    <img src="./image/Unet_model_prediction.png" alt="3 squares" width="500px" height="300px"/>
+    <p>Original vs Ground Truth vs Predcited </p>
+</div>
+
+
+## Comparision Between the Unet and Traditional model
+
+### Descriptive statistics
+<div align="center">
+    <img src="./image/description_ comparision.png" alt="3 squares" width="500px" height="300px"/>
+    <p>Description Comparision in IoU metric </p>
+</div>
+
+
+##### Box plot for IOU comparision
+<div align="center">
+    <img src="./image/boxplot_comparision.png" alt="3 squares" width="500px" height="300px"/>
+    <p>Box plot compa in IoU metric </p>
+</div>
+
+##### Line plot for IOU comparision 
+<div align="center">
+    <img src="./image/line_plot_comparision.png" alt="3 squares" width="500px" height="300px"/>
+    <p>Line Plot Comparision in IoU metric </p>
+</div>
+
+##### Histogram  for IOU comparision 
+<div align="center">
+    <img src="./image/histogram_comparision.png" alt="3 squares" width="500px" height="300px"/>
+    <p>Histogram  Comparision in IoU metric </p>
+</div>
+
+
+
+
+#### How to Run
+1. Install python version 3.12.8
+
+2. Install jupyterlab 
+   ```
+   pip install jupyterlab
+   ```
+3. Clone the repository:
+
+   ```bash
+   git clone https://github.com/ADITYAAV80/VR_Project1_AdityaAV_MT2024009.git
+   cd VR_Project1_AdityaAV_MT2024009
+   ```
+
+4. Download the trained Unet model usig Kaggle from [GDrive](https://drive.google.com/drive/folders/1q_44WhV46XyMAx_moPTOOofJn8KzyL2j?usp=sharing) and copy it in /Data
+
+5. Change the names of dataset(trained on kaggle). Then download the unet trained best model and make the use it locally.
+
+6. Run the Jupyter notebook in VSCode or Similar Editor
+   ```
+   Notebook path -> ./notebooks/segmentation.ipynb
+   ```
