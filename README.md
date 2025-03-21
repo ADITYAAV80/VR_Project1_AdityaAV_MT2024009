@@ -262,6 +262,16 @@ The correspoding information regarding the models architecture  and their summar
 Got an idea how the IoU score varies according to the architecture, which helped in building the final model. 
 The IoU score of each model variant with respect to the data is jotted in the "results.csv", the above mentioned folder. 
 
+**Mathematical Definition**
+
+
+The Dice score is a metric used to evaluate the **overlap between two sets**, commonly used in image segmentation to compare the **predicted mask with the ground truth mask**.
+
+$$
+\text{Dice Score} = \frac{2 \times |P \cap G|}{|P| + |G|}
+
+$$
+
 
 ## Result
 ### Train Size = **9383 Images**
