@@ -282,9 +282,11 @@ $$
 #### IoU Score
 
 The **IoU formula** in terms of TP, FP, and FN:
+
 $$
-\text{IoU} = \frac{\text{TP}}{\text{TP} + \text{FP} + \text{FN}}
+\text{IoU} = \frac{TP}{TP} + {FP} + {FN}}
 $$
+
 
  <table border="1" align="center">
     <tr>
