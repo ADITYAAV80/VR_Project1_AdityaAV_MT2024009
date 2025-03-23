@@ -281,6 +281,10 @@ $$
 ### Test Set Size = **94 Images**
 #### IoU Score
 
+The **IoU formula** in terms of TP, FP, and FN:
+\[
+\text{IoU} = \frac{\text{TP}}{\text{TP} + \text{FP} + \text{FN}}
+\]
 
  <table border="1" align="center">
     <tr>
