@@ -284,7 +284,7 @@ $$
 The **IoU formula** in terms of TP, FP, and FN:
 
 $$
-\text{IoU} = \frac{TP}{TP} + {FP} + {FN}}
+\text{IoU} = \frac{TP}{{TP} + {FP} + {FN}}
 $$
 
 
