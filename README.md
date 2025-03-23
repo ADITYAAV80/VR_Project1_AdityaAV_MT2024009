@@ -260,7 +260,7 @@ There are other methods like bayesian optimization which can be used for hyper p
 
 The correspoding information regarding the models architecture  and their summary is there given in the hyper parameter tuning folder. 
 Got an idea how the IoU score varies according to the architecture, which helped in building the final model. 
-The IoU score of each model variant with respect to the data is jotted in the "results.csv", the above mentioned folder. 
+The IoU score and the results of  variant with respect to the model architecture is jotted in the results of the notebook cells, in the above mentioned folder. 
 
 **Mathematical Definition**
 
