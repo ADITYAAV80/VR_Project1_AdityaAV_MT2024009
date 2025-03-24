@@ -18,6 +18,13 @@ This project focuses on classifying images of people with and without masks usin
 - **Interactive Web Application**:
   - Built using Streamlit for uploading and classifying images.
 
+## Hyperparameter tuning using GRID Search
+
+- learning_rate: 0.01, 0.001, 0.0001
+- batch_size: 32, 64,
+- optimizer: "adam", "sgd",
+- epochs": 10, 20, 30
+
 ## Installation
 
 1. Clone the repository:
@@ -65,18 +72,18 @@ This project focuses on classifying images of people with and without masks usin
 
 ## Mask Segmentation using Traditional Region based Segmentation
 
-We implemented mask segmentation using traditional image processing techniques for region-based segmentation. 
+We implemented mask segmentation using traditional image processing techniques for region-based segmentation.
 
 The Canny edge detection algorithm was used to identify edges in the images, and the Watershed algorithm was applied using these edges as markers. This combination helped in accurately segmenting the masked regions from the background.
 
 ### Dataset
+
 MFSD: Masked Face Segmentation Dataset for face-related tasks
 [link](https://github.com/sadjadrz/MFSD?tab=readme-ov-file).
 
-
 ### Notebook
-[Segmentation Notebook](./notebooks/segmentation.ipynb)
 
+[Segmentation Notebook](./notebooks/segmentation.ipynb)
 
 ### Methodology
 
@@ -84,20 +91,19 @@ MFSD: Masked Face Segmentation Dataset for face-related tasks
 
 To enhance image contrast, global methods such as linear stretching were unsuitable due to variations in lighting conditions, multiple light sources, shadows, and patterns across multiple images.
 
-Therefore, we employed ***Contrast Limited Adaptive Histogram Equalization (CLAHE)*** for local contrast enhancement. 
+Therefore, we employed **_Contrast Limited Adaptive Histogram Equalization (CLAHE)_** for local contrast enhancement.
 
-CLAHE enhances local contrast by dividing the image into small, non-overlapping tiles and applying histogram equalization independently to each. To prevent noise over-amplification, it clips the histogram at a predefined threshold before computing the cumulative distribution function. The adjusted tiles are then merged using bilinear interpolation. 
+CLAHE enhances local contrast by dividing the image into small, non-overlapping tiles and applying histogram equalization independently to each. To prevent noise over-amplification, it clips the histogram at a predefined threshold before computing the cumulative distribution function. The adjusted tiles are then merged using bilinear interpolation.
 
 This approach improves edge definition and is particularly effective for images with uneven lighting and complex patterns.
 
 #### Edge Detection
 
-For edge detection, we implemented the ***Canny Edge Detection*** algorithm, which produces one-pixel-wide edges through non-maximum suppression. This technique allows for precise localization of edges by identifying local maxima in the gradient magnitude.
+For edge detection, we implemented the **_Canny Edge Detection_** algorithm, which produces one-pixel-wide edges through non-maximum suppression. This technique allows for precise localization of edges by identifying local maxima in the gradient magnitude.
 
 The Canny algorithm employs a double thresholding mechanism to classify edge pixels into strong and weak categories, so you can have adaptive edge detection for each image using strong and weak edge thresholds, which ensures robustness of edge detection across varying lighting conditions and image content.
 
-In our implementation, we  heuristically determined strong and weak edge thresholds to be 62 ,15 percentiles of pixel intensity respectively. 
-
+In our implementation, we heuristically determined strong and weak edge thresholds to be 62 ,15 percentiles of pixel intensity respectively.
 
 <div align="center">
    <img src="./image/seg_img_1_canny.png" height="300px">
@@ -108,7 +114,7 @@ In our implementation, we  heuristically determined strong and weak edge thresho
 
 In the context of region-based segmentation, techniques such as region growing were unsuitable due to their reliance on prior knowledge for seed point initialization.
 
-Consequently, the **Watershed Segmentation** algorithm was used  to segment the mask.
+Consequently, the **Watershed Segmentation** algorithm was used to segment the mask.
 
 The watershed is a classical algorithm used for segmentation, that is, for separating different objects in an image.
 
@@ -123,7 +129,7 @@ Starting from user-defined markers, the watershed algorithm treats pixels values
 
 In our application of the watershed algorithm for image segmentation, we utilized pixel intensity-based markers to delineate background, foreground, and sure foreground regions.
 
- This marker-based approach is effective in guiding the segmentation process by assigning labels to different regions based on local intensity gradients.
+This marker-based approach is effective in guiding the segmentation process by assigning labels to different regions based on local intensity gradients.
 
 In our watershed implementation, the algorithm assumes the mask is lighter than the background. If the mask is darker, we detect and invert it by comparing the mean pixel intensities of the image’s lower and upper halves, assuming the mask predominantly occupies the lower half. If the lower half is darker, the image is inverted to ensure consistency.
 
@@ -134,14 +140,14 @@ To improve robustness, we analyze three concentric square regions (25%, 50%, and
    <p>Concentric Squares For Mask Color Detection</p>
 </div>
 
-
 <div align="center">
     <img src="./image/seg_img_2.png" alt="3 squares" width="400px"/>
     <p>Dark Mask Inversion Example</p>
 </div>
 
 #### Mask Segmentation
-n our mask segmentation process, we assume that the largest non-background cluster represents the mask. 
+
+n our mask segmentation process, we assume that the largest non-background cluster represents the mask.
 
 This cluster is isolated, while all other regions are classified as background. This assumption ensures a consistent approach to segmentation, though its accuracy depends on the specific image characteristics.
 
@@ -150,7 +156,7 @@ This cluster is isolated, while all other regions are classified as background. 
     <p>Mask Segmentation with IoU Score</p>
 </div>
 
-### Evaluation Metric 
+### Evaluation Metric
 
 #### IoU Score
 
@@ -171,6 +177,7 @@ $$
 $$
 
 Where:
+
 - **TP (True Positives):** Pixels correctly classified as part of the object.
 - **FP (False Positives):** Pixels incorrectly classified as part of the object.
 - **FN (False Negatives):** Object pixels missed by the model.
@@ -181,11 +188,11 @@ Where:
 - **IoU = 0.0** → No overlap between predicted and ground truth masks.
 - **Higher IoU** → More accurate segmentation.
 
-
 ### Result
-Test Set Size = **94 Images**
-### IoU Score
 
+Test Set Size = **94 Images**
+
+### IoU Score
 
  <table border="1" align="center">
     <tr>
@@ -203,17 +210,18 @@ Test Set Size = **94 Images**
 
 ### Analysis and Observation
 
-Automatic segmentation is a challenging task, achieving a mean Intersection over Union (IoU) score of 0.5366 in our implemenation. 
+Automatic segmentation is a challenging task, achieving a mean Intersection over Union (IoU) score of 0.5366 in our implemenation.
 
-Segmentation accuracy can be adversely affected by factors such as lighting variations, shadows, and patterned masks, which introduce complexities in accurately delineating object boundaries. 
+Segmentation accuracy can be adversely affected by factors such as lighting variations, shadows, and patterned masks, which introduce complexities in accurately delineating object boundaries.
 
-Variations in lighting can cause uneven exposure, making it difficult to distinguish foreground from background. Shadows may create artificial edges that mislead segmentation algorithms, while complex patterns in masks can lead to incorrect region classification. 
+Variations in lighting can cause uneven exposure, making it difficult to distinguish foreground from background. Shadows may create artificial edges that mislead segmentation algorithms, while complex patterns in masks can lead to incorrect region classification.
 
 Overcoming these challenges requires more robust preprocessing techniques and adaptive segmentation models.
 
 ### Running the Notebook
 
 #### Requirements
+
 - python - 3.12.8
 - jupyterlab - 4.3.5
 - matplotlib - 3.10.0
@@ -225,9 +233,10 @@ Overcoming these challenges requires more robust preprocessing techniques and ad
 - VSCode or similar jupyter enabled editor
 
 #### How to Run
+
 1. Install python version 3.12.8
 
-2. Install jupyterlab 
+2. Install jupyterlab
    ```
    pip install jupyterlab
    ```
@@ -244,26 +253,27 @@ Overcoming these challenges requires more robust preprocessing techniques and ad
    ```
    Notebook path -> ./notebooks/segmentation.ipynb
    ```
-   
-   
-   
+
 # UNET Segmentation
 
-### Hyper parameter tuning 
-#### GridSearch 
+### Hyper parameter tuning
+
+#### GridSearch
+
 There are other methods like bayesian optimization which can be used for hyper parameter tuning, but I used gridsearch
+
 ##### Search space
+
 1. "learning_rate": [1e-3, 1e-4],
 2. "dropout": [0.3, 0.5],
 3. "num_filters": [32, 64],
 4. "kernel_size": [(3,3), (5,5)]
 
-The correspoding information regarding the models architecture  and their summary is there given in the hyper parameter tuning folder. 
-Got an idea how the IoU score varies according to the architecture, which helped in building the final model. 
-The IoU score and the results of  variant with respect to the model architecture is jotted in the results of the notebook cells, in the above mentioned folder. 
+The correspoding information regarding the models architecture and their summary is there given in the hyper parameter tuning folder.
+Got an idea how the IoU score varies according to the architecture, which helped in building the final model.
+The IoU score and the results of variant with respect to the model architecture is jotted in the results of the notebook cells, in the above mentioned folder.
 
 **Mathematical Definition**
-
 
 The Dice score is a metric used to evaluate the **overlap between two sets**, commonly used in image segmentation to compare the **predicted mask with the ground truth mask**.
 
@@ -271,16 +281,15 @@ $$
 \text{Dice Score} = \frac{2 \times |P \cap G|}{|P| + |G|}
 $$
 
-
 ## Result
+
 ### Train Size = **9383 Images**
-#### Dice Score =  0.93 
 
-
+#### Dice Score = 0.93
 
 ### Test Set Size = **94 Images**
-#### IoU Score
 
+#### IoU Score
 
  <table border="1" align="center">
     <tr>
@@ -295,52 +304,54 @@ $$
 ### Sample output prediction from model
 
 #### Sample 1
+
 <div align="center">
     <img src="./image/mask_gt_vs_pred_unet.png" alt="3 squares" width="500px" height="300px"/>
     <p>Comparision Ground Truth vs Predicted</p>
 </div>
 
 #### Sample 2
+
 <div align="center">
     <img src="./image/Unet_model_prediction.png" alt="3 squares" width="500px" height="300px"/>
     <p>Original vs Ground Truth vs Predcited </p>
 </div>
 
-
 ## Comparision Between the Unet and Traditional model
 
 ### Descriptive statistics
+
 <div align="center">
     <img src="./image/description_ comparision.png" alt="3 squares" width="500px" height="300px"/>
     <p>Description Comparision in IoU metric </p>
 </div>
 
-
 ##### Box plot for IOU comparision
+
 <div align="center">
     <img src="./image/boxplot_comparision.png" alt="3 squares" width="500px" height="300px"/>
     <p>Box plot compa in IoU metric </p>
 </div>
 
-##### Line plot for IOU comparision 
+##### Line plot for IOU comparision
+
 <div align="center">
     <img src="./image/line_plot_comparision.png" alt="3 squares" width="500px" height="300px"/>
     <p>Line Plot Comparision in IoU metric </p>
 </div>
 
-##### Histogram  for IOU comparision 
+##### Histogram for IOU comparision
+
 <div align="center">
     <img src="./image/histogram_comparision.png" alt="3 squares" width="500px" height="300px"/>
     <p>Histogram  Comparision in IoU metric </p>
 </div>
 
-
-
-
 #### How to Run
+
 1. Install python version 3.12.8
 
-2. Install jupyterlab 
+2. Install jupyterlab
    ```
    pip install jupyterlab
    ```
