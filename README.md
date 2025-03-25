@@ -1,3 +1,12 @@
+# VR Mini Project: Face Mask Detection, Classification, and Segmentation
+- *Gangasagar HL | MT2024048*
+- *Aditya A V | MT2024009*
+- *M B Ashish | MT2024085*
+
+## Abstract
+
+This project focuses on developing a computer vision-based system for face mask analysis, addressing two key tasks: Mask Detection and Mask Segmentation. For mask detection, both traditional handcrafted feature extraction techniques such as Histogram of Oriented Gradients (HOG) and Local Binary Patterns (LBP) are used  with classifiers like Support Vector Machines (SVM) and Neural Networks, as well as deep learning-based Convolutional Neural Networks (CNNs) are explored. Mask segmentation is performed using both classical region-based techniques, specifically the Watershed Segmentation algorithm, and deep learning-based segmentation with U-Net. By integrating these approaches, the project aims to provide a robust and efficient solution for automated face mask detection and segmentation.
+
 # Mask Image Classification
 
 This project focuses on classifying images of people with and without masks using various machine learning and deep learning techniques.
